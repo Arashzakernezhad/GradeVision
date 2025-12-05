@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Add src to path
-sys.path.append(os.path.join(os.getcwd(), 'src'))
+sys.path.append('./src')
 from data_manager import DataManager
 from grade_calculator import GradeCalculator
 from visualizer import GradeVisualizer
@@ -27,7 +27,6 @@ class GradeVisionUI:
         self.create_main_area()
         
     def create_menu_bar(self):
-        """Create the menu bar"""
         menubar = tk.Menu(self.root)
         self.root.config(menu=menubar)
         
@@ -48,7 +47,6 @@ class GradeVisionUI:
         view_menu.add_command(label="GPA Overview", command=lambda: self.show_visualization('gpa'))
         
     def create_toolbar(self):
-        """Create toolbar with buttons"""
         toolbar = tk.Frame(self.root, bg='#e0e0e0', relief=tk.RAISED, bd=2)
         toolbar.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         
@@ -85,7 +83,6 @@ class GradeVisionUI:
         self.status_label.pack(side=tk.RIGHT, padx=10)
         
     def create_main_area(self):
-        """Create main visualization area"""
         # Create notebook for tabs
         self.notebook = ttk.Notebook(self.root)
         self.notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
@@ -101,7 +98,6 @@ class GradeVisionUI:
         self.create_viz_tab()
         
     def create_info_tab(self):
-        """Create information display tab"""
         # Scrollable text area
         scrollbar = tk.Scrollbar(self.info_frame)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
@@ -115,7 +111,6 @@ class GradeVisionUI:
         self.update_info_display()
         
     def create_viz_tab(self):
-        """Create visualization display tab"""
         self.viz_canvas_frame = tk.Frame(self.viz_frame, bg='white')
         self.viz_canvas_frame.pack(fill=tk.BOTH, expand=True)
         
@@ -126,7 +121,6 @@ class GradeVisionUI:
         initial_label.pack(expand=True)
         
     def load_file(self):
-        """Load CSV file"""
         file_path = filedialog.askopenfilename(
             title="Select CSV File",
             filetypes=[("CSV files", "*.csv"), ("All files", "*.*")]
@@ -148,7 +142,6 @@ class GradeVisionUI:
                 messagebox.showerror("Error", f"Error loading file:\n{str(e)}")
     
     def update_info_display(self):
-        """Update information display"""
         self.info_text.delete(1.0, tk.END)
         
         if not self.data_manager.courses:
@@ -202,12 +195,12 @@ class GradeVisionUI:
         self.info_text.tag_config('gpa', font=('Consolas', 12, 'bold'), foreground='#06A77D')
     
     def show_visualization(self, viz_type):
-        """Show selected visualization"""
         if not self.data_manager.courses:
             messagebox.showwarning("No Data", "Please load a CSV file first.")
             return
         
         # Clear previous visualization
+        plt.close('all')
         for widget in self.viz_canvas_frame.winfo_children():
             widget.destroy()
         
@@ -254,7 +247,6 @@ class GradeVisionUI:
             messagebox.showerror("Error", f"Error creating visualization:\n{str(e)}")
     
     def select_course(self):
-        """Show course selection dialog"""
         course_names = self.data_manager.get_course_names()
         
         dialog = tk.Toplevel(self.root)
@@ -263,7 +255,7 @@ class GradeVisionUI:
         dialog.transient(self.root)
         dialog.grab_set()
         
-        result = [None]
+        result = ["CANCEL"]
         
         tk.Label(dialog, text="Select a course:", font=('Arial', 10, 'bold')).pack(pady=10)
         
