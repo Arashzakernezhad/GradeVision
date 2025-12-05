@@ -224,14 +224,13 @@ class GradeVisionUI:
                 GradeVisualizer.plot_grade_distribution(self.data_manager, fig)
             elif viz_type == 'weight_distribution':
                 # Ask for course selection if multiple courses
+                course_name = None
                 if len(self.data_manager.courses) > 1:
                     course_name = self.select_course()
-                    if course_name:
-                        GradeVisualizer.plot_weight_distribution(self.data_manager, course_name, fig)
-                    else:
-                        GradeVisualizer.plot_weight_distribution(self.data_manager, None, fig)
-                else:
-                    GradeVisualizer.plot_weight_distribution(self.data_manager, None, fig)
+                    if course_name == "CANCEL":
+                        return
+
+                GradeVisualizer.plot_assignment_performance(self.data_manager, course_name, fig)
             elif viz_type == 'gpa':
                 GradeVisualizer.plot_gpa_trend(self.data_manager, fig)
             
