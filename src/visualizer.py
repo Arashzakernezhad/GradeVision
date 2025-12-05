@@ -12,14 +12,12 @@ from grade_calculator import GradeCalculator
 class GradeVisualizer:
     @staticmethod
     def calculate_percentage(score, max_score):
-        """Calculate percentage score"""
         if max_score == 0:
             return 0
         return (score / max_score) * 100
     
     @staticmethod
     def plot_course_grades(data_manager, figure=None):
-        """Plot grades for all courses"""
         if figure is None:
             figure, ax = plt.subplots(figsize=(10, 6))
         else:
@@ -62,7 +60,6 @@ class GradeVisualizer:
     
     @staticmethod
     def plot_assignment_performance(data_manager, course_name=None, figure=None):
-        """Plot assignment performance for a specific course or all courses"""
         if figure is None:
             figure, ax = plt.subplots(figsize=(12, 6))
         else:
@@ -131,7 +128,13 @@ class GradeVisualizer:
             labels = ['F (<60)', 'D (60-69)', 'C (70-79)', 'B (80-89)', 'A (90-100)']
             colors = ['#C73E1D', '#F18F01', '#A23B72', '#2E86AB', '#06A77D']
             
-            counts, edges, bars = ax.hist(all_grades, bins=bins, color=colors, edgecolor='black', linewidth=1.5, alpha=0.7)
+            # FIX: Use a single default color in the function call to stop the crash
+            counts, edges, bars = ax.hist(all_grades, bins=bins, color='gray', edgecolor='black', linewidth=1.5, alpha=0.7)
+            
+            # FIX: Manually apply the colors to the bars after they are created
+            for bar, color in zip(bars, colors):
+                bar.set_facecolor(color)
+
             ax.set_xlabel('Grade Range (%)', fontsize=12, fontweight='bold')
             ax.set_ylabel('Number of Assignments', fontsize=12, fontweight='bold')
             ax.set_title('Grade Distribution', fontsize=14, fontweight='bold', pad=20)
@@ -152,7 +155,6 @@ class GradeVisualizer:
     
     @staticmethod
     def plot_weight_distribution(data_manager, course_name=None, figure=None):
-        """Plot weight distribution for assignments"""
         if figure is None:
             figure, ax = plt.subplots(figsize=(10, 6))
         else:
@@ -194,7 +196,6 @@ class GradeVisualizer:
     
     @staticmethod
     def plot_gpa_trend(data_manager, figure=None):
-        """Plot GPA calculation"""
         if figure is None:
             figure, ax = plt.subplots(figsize=(8, 6))
         else:

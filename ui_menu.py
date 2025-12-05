@@ -248,7 +248,7 @@ class GradeVisionUI:
         
         dialog = tk.Toplevel(self.root)
         dialog.title("Select Course")
-        dialog.geometry("300x200")
+        dialog.geometry("400x400")
         dialog.transient(self.root)
         dialog.grab_set()
         
