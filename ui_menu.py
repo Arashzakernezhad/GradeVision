@@ -190,9 +190,9 @@ class GradeVisionUI:
         self.info_text.insert(tk.END, "=" * 60 + "\n")
         
         # Configure text tags for styling
-        self.info_text.tag_config('heading', font=('Consolas', 12, 'bold'), foreground='#2E86AB')
-        self.info_text.tag_config('subheading', font=('Consolas', 10, 'bold'), foreground='#A23B72')
-        self.info_text.tag_config('gpa', font=('Consolas', 12, 'bold'), foreground='#06A77D')
+        self.info_text.tag_config('heading', font=('Consolas', 12, 'bold'), foreground='blue')
+        self.info_text.tag_config('subheading', font=('Consolas', 10, 'bold'), foreground='purple')
+        self.info_text.tag_config('gpa', font=('Consolas', 12, 'bold'), foreground='green')
     
     def show_visualization(self, viz_type):
         if not self.data_manager.courses:
@@ -211,15 +211,13 @@ class GradeVisionUI:
             if viz_type == 'course_grades':
                 GradeVisualizer.plot_course_grades(self.data_manager, fig)
             elif viz_type == 'assignment_performance':
-                # Ask for course selection if multiple courses
+                course_name = None
                 if len(self.data_manager.courses) > 1:
                     course_name = self.select_course()
-                    if course_name:
-                        GradeVisualizer.plot_assignment_performance(self.data_manager, course_name, fig)
-                    else:
-                        GradeVisualizer.plot_assignment_performance(self.data_manager, None, fig)
-                else:
-                    GradeVisualizer.plot_assignment_performance(self.data_manager, None, fig)
+                    if course_name == "CANCEL":
+                        return
+                
+                GradeVisualizer.plot_assignment_performance(self.data_manager, course_name, fig)
             elif viz_type == 'grade_distribution':
                 GradeVisualizer.plot_grade_distribution(self.data_manager, fig)
             elif viz_type == 'weight_distribution':
