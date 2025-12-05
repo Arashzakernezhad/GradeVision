@@ -52,7 +52,7 @@ class GradeVisionUI:
         
         # Load file button
         load_btn = tk.Button(toolbar, text="📁 Load CSV File", command=self.load_file,
-                            bg='#4CAF50', fg='white', font=('Arial', 10, 'bold'),
+                            bg='green', fg='white', font=('Arial', 10, 'bold'),
                             padx=10, pady=5, cursor='hand2')
         load_btn.pack(side=tk.LEFT, padx=5)
         
@@ -73,7 +73,7 @@ class GradeVisionUI:
         for text, viz_type in viz_buttons:
             btn = tk.Button(viz_frame, text=text, 
                            command=lambda vt=viz_type: self.show_visualization(vt),
-                           bg='#2196F3', fg='white', font=('Arial', 9),
+                           bg='blue', fg='white', font=('Arial', 9),
                            padx=8, pady=5, cursor='hand2')
             btn.pack(side=tk.LEFT, padx=2)
         
@@ -230,7 +230,7 @@ class GradeVisionUI:
                     if course_name == "CANCEL":
                         return
 
-                GradeVisualizer.plot_assignment_performance(self.data_manager, course_name, fig)
+                GradeVisualizer.plot_weight_distribution(self.data_manager, course_name, fig)
             elif viz_type == 'gpa':
                 GradeVisualizer.plot_gpa_trend(self.data_manager, fig)
             
@@ -278,11 +278,11 @@ class GradeVisionUI:
         button_frame.pack(pady=10)
         
         tk.Button(button_frame, text="Select", command=on_select,
-                 bg='#4CAF50', fg='white', padx=10).pack(side=tk.LEFT, padx=5)
+                 bg='green', fg='white', padx=10).pack(side=tk.LEFT, padx=5)
         tk.Button(button_frame, text="All Courses", command=on_all,
-                 bg='#2196F3', fg='white', padx=10).pack(side=tk.LEFT, padx=5)
+                 bg='blue', fg='white', padx=10).pack(side=tk.LEFT, padx=5)
         tk.Button(button_frame, text="Cancel", command=dialog.destroy,
-                 bg='#f44336', fg='white', padx=10).pack(side=tk.LEFT, padx=5)
+                 bg='red', fg='white', padx=10).pack(side=tk.LEFT, padx=5)
         
         dialog.wait_window()
         return result[0]
