@@ -60,3 +60,4 @@ class GradeCalculator:
         return current_contribution + future_contribution
 
 
+
