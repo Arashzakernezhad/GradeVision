@@ -9,42 +9,6 @@ This directory contains comprehensive test cases for the GradeVision application
 - `test_visualizer.py` - Tests for GradeVisualizer class (visualization functions)
 - `test_ui_menu.py` - Tests for GradeVisionUI class (UI components and integration)
 
-## Running Tests
-
-### Install Dependencies
-
-First, make sure you have pytest installed:
-```bash
-pip install -r requirements.txt
-```
-
-### Run All Tests
-
-```bash
-pytest tests/
-```
-
-### Run Specific Test File
-
-```bash
-pytest tests/test_data_manager.py
-pytest tests/test_grade_calculator.py
-pytest tests/test_visualizer.py
-pytest tests/test_ui_menu.py
-```
-
-### Run with Verbose Output
-
-```bash
-pytest tests/ -v
-```
-
-### Run with Coverage Report
-
-```bash
-pytest tests/ --cov=src --cov-report=html
-```
-
 ## Test Coverage
 
 ### DataManager Tests
